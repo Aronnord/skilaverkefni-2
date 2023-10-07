@@ -1,22 +1,39 @@
+
 import 'dart:io';
 
-void main(){
-  stdout.write('Please enter a number:');
-  String? input =stdin.readLineSync();
-  if (input != null) {
-    try {
-      int number = int.parse(input);
-      printMultiplicationTable(number);
-    } catch (e) {
-      print('Please enter a number.');
+void main() {
+  List<int> numbers = [];
+  int count = 0;
+
+  while (count < 5) {
+    String input = stdin.readLineSync() ?? '';
+
+    if (input.toLowerCase() == 'quit') {
+      break;
+    }
+
+    int? number = int.tryParse(input);
+
+    if (number != null) {
+      numbers.add(number);
+      count++;
+    } else {
+      print('Invalid number.');
     }
   }
-}
 
-void printMultiplicationTable(int number) {
-  print('$number');
-  for (int i = 1; i <= 10; i++) {
-    int resault  = number * i;
-    print('$number * $i = $resault');
+  if (numbers.isEmpty) {
+    print('No numbers entered.');
+  } else {
+    int sum = 0;
+
+    for (int number in numbers) {
+      sum += number;
+    }
+
+    double average = sum / numbers.length;
+
+    print('Sum: $sum');
+    print('Average: $average');
   }
 }
